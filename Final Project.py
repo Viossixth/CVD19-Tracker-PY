@@ -88,5 +88,41 @@ filtered_df['death_rate'] = death_rate
 print(filtered_df['death_rate'])
 
 #Section 5 Visualizing Vaccination Progress
+#Plot cumulative vaccinations over time for selected countries.
+
+vaccine_df =pd.read_csv('vaccinations.csv')
+vaccinations_df = vaccine_df[vaccine_df['location'].isin(['South Africa','Singapore','Switzerland','Malaysia','Australia'])]
+print(vaccinations_df)
+
+locations = vaccinations_df['location'].unique()
+
+plt.figure(figsize=(10, 6))
+
+for location in locations:
+    location_data = vaccinations_df[vaccinations_df['location'] == location]
+    plt.plot(location_data['date'], location_data['total_vaccinations'], label=location)
+
+plt.title('Cummulative vaccinations over time')
+plt.xlabel('Date')
+plt.ylabel('total vaccinations')
+plt.legend()
+plt.show()
+
+#Compare % vaccinated population.
+
+locations = vaccinations_df['location'].unique()
+
+plt.figure(figsize=(10, 6))
+
+for location in locations:
+    location_data = vaccinations_df[vaccinations_df['location'] == location]
+    plt.plot(location_data['date'], location_data['people_vaccinated_per_hundred'], label=location)
+
+plt.title('% vaccinated population over time')
+plt.xlabel('Date')
+plt.ylabel('%vaccinated population')
+plt.legend()
+plt.show()
+
 
 #Section 7 Inisghts and reporting
